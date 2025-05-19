@@ -184,8 +184,9 @@
       const shifts = getTimeShifts();
       if (!shifts) return;
       const message = document.getElementById('messageInput').value.trim();
-      if (!message.includes(' ')) {
-        alert('Message must contain one space dividing two parts.');
+      const spaceMatches = message.match(/ /g);
+      if (!spaceMatches || spaceMatches.length !== 1) {
+        alert('Message must contain exactly one space dividing two parts.');
         return;
       }
       const encrypted = processMessage(message, shifts[0], shifts[1], true);
@@ -196,13 +197,15 @@
       const shifts = getTimeShifts();
       if (!shifts) return;
       const message = document.getElementById('messageInput').value.trim();
-      if (!message.includes(' ')) {
-        alert('Ciphertext must contain one space dividing two parts.');
+      const spaceMatches = message.match(/ /g);
+      if (!spaceMatches || spaceMatches.length !== 1) {
+        alert('Ciphertext must contain exactly one space dividing two parts.');
         return;
       }
       const decrypted = processMessage(message, shifts[0], shifts[1], false);
       document.getElementById('output').value = decrypted;
     }
+
   </script>
 </body>
 </html>
