@@ -14,7 +14,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Orbitron', sans-serif;
-      background: url('spritz.jpg') no-repeat center center fixed;
+      background: url('Spritz.png') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
       display: flex;
@@ -63,10 +63,12 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
-    textarea {
-      min-height: 80px;
-      resize: vertical;
-    }
+   textarea {
+  min-height: 80px;
+  resize: vertical;
+  font-size: 1.5em;
+}
+
 
     .button-group {
       display: flex;
@@ -113,6 +115,29 @@
     ::placeholder {
       color: #ddd;
     }
+
+    .time-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1em;
+    }
+
+    #timeInput {
+      font-size: 1.5em;
+      text-align: center;
+      width: 60%;
+    }
+
+    .copy-button-group {
+      display: flex;
+      justify-content: center;
+      margin-top: 1em;
+    }
+
+    .copy-button-group button {
+      width: auto;
+      flex: none;
+    }
   </style>
 </head>
 
@@ -120,8 +145,10 @@
   <div class="glass">
     <h2>ChronoCrypt Cipher</h2>
 
-    <label for="timeInput"> Enter Time (HH:MM):</label>
-    <input id="timeInput" type="time" />
+    <label for="timeInput">Enter Time (HH:MM):</label>
+    <div class="time-container">
+      <input id="timeInput" type="time" />
+    </div>
 
     <label for="messageInput">Enter Message:</label>
     <textarea id="messageInput" placeholder="Enter text (with a space between parts)"></textarea>
@@ -131,8 +158,12 @@
       <button onclick="decryptMessage()">Decrypt</button>
     </div>
 
-    <h3> Output:</h3>
+    <h3>Output:</h3>
     <textarea id="output" readonly></textarea>
+
+    <div class="copy-button-group">
+      <button onclick="copyOutput()">Copy to Clipboard</button>
+    </div>
   </div>
 
   <script>
@@ -206,6 +237,16 @@
       document.getElementById('output').value = decrypted;
     }
 
+    function copyOutput() {
+      const output = document.getElementById('output');
+      output.select();
+      output.setSelectionRange(0, 99999); // For mobile devices
+      navigator.clipboard.writeText(output.value).then(() => {
+        alert('Copied to clipboard!');
+      }).catch(() => {
+        alert('Failed to copy text.');
+      });
+    }
   </script>
 </body>
 </html>
